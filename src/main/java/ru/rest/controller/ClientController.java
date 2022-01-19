@@ -1,5 +1,6 @@
 package ru.rest.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import ru.rest.service.ClientService;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 public class ClientController {
 
@@ -63,5 +65,12 @@ public class ClientController {
         return delete
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(RuntimeException.class)
+    public String handle(RuntimeException e){
+        log.error(e.getMessage());
+        return "Enter parametrs";
     }
 }
